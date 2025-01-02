@@ -21,7 +21,11 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 
 @app.route('/')
 def welcome():
-    print(client_id,client_secret)
+    if client_id and client_secret:
+        print("Client ID and Client Secret loaded successfully.")
+    else:
+        print("Error: Client ID or Client Secret not loaded.")
+    print(f"Client ID: {client_id}, Client Secret: {client_secret}")
     return render_template('welcome.html')
 
 @app.route('/redirect')
