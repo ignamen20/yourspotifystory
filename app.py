@@ -1,5 +1,5 @@
 from flask import Flask, request, url_for, session, redirect, render_template, g
-import spotipy
+#import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
 from groq import Groq 
@@ -26,4 +26,4 @@ def welcome():
     return render_template('welcome.html')
 
 if __name__ == '__main__':
-    app.run()  ß
+    app.run()  
