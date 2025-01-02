@@ -28,6 +28,8 @@ def welcome():
     print(f"Client ID: {client_id}, Client Secret: {client_secret}")
     if groq_api_key:
         print("Groq API Key loaded successfully.")
+    else:
+            print("Error: Groq API Key not loaded.")    
     return render_template('welcome.html')
 
 @app.route('/redirect')
