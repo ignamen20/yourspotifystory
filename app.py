@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/') 
-def hello_world():
-    return 'Tengo un sitio web, idiota'
-=======
 from flask import Flask, request, url_for, session, redirect, render_template, g
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
@@ -32,7 +24,6 @@ print(client_id)
 def welcome():
     print(client_id,client_secret)
     return render_template('welcome.html')
->>>>>>> 1a0ec4e (subo primera inclusion de compu HP)
 
 if __name__ == '__main__':
-    app.run()  
+    app.run()  ß
