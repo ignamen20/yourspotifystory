@@ -76,7 +76,7 @@ The tone used in the analysis should be professional and confident in what you'r
 The user is a person curious about what their songs say about them. They want to feel surprised as to how you can tell them just from their songs and they want to feel special.
 The first paragraph should be 50 words long and contain most of the inferences, without going into detail on how you came to them. In this first paragraph I also want you to say what they are going through currently.
 In the rest of the paragraphs I want you to quote the song titles and part of the lyrics to support the assumptions you make.
-The complete analysis should be around 250 words long. Write it in Spanish.
+The complete analysis should be around 250 words long. Write it in Spanish. Include the name of the three songs.
 The songs are:"""+
 song_item[0]['name'] + " by " + song_item[0]['artists'][0]['name'] + ", " 
 ,
