@@ -3,6 +3,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
 from groq import Groq 
+from openai import OpenAI
 import time
 import os
 import sys
@@ -18,6 +19,9 @@ load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 groq_api_key = os.getenv("GROQ_API_KEY")
+openai_project_id = os.getenv("OPENAI_PROJECT_ID")
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
 
 @app.route('/')
 def welcome():
@@ -29,7 +33,9 @@ def welcome():
     if groq_api_key:
         print("Groq API Key loaded successfully.")
     else:
-            print("Error: Groq API Key not loaded.")    
+            print("Error: Groq API Key not loaded.") 
+    if openai_api_key:
+        print("OpenAI API Key loaded successfully.")   
     return render_template('welcome.html')
 
 @app.route('/redirect')
@@ -64,27 +70,41 @@ def getTopTracks():
     limit_chosen = 3
     song_item = sp.current_user_top_tracks(
         limit=limit_chosen, offset=19, time_range='long_term')['items']
-    client = Groq(
-    api_key=groq_api_key)
-    chat_completion = client.chat.completions.create(
+    client = OpenAI(
+        api_key=openai_api_key
+    )
+    completion = client.chat.completions.create(
+    model="gpt-4o-mini",
     messages=[
-            {
+        {"role": "system", "content": "You are a helpful assistant."},
+        {
             "role": "user",
-            "content": """You are a psychiatrist specialised in finding as much about people as possible knowing only what music they listen to. 
-I want you to write a personality analysis about a person knowing only their favourite songs. I want you to use the lyrics of the songs they listen to the most to understand what they are feeling and what they have gone through. Also you can make inferences about what they should expect in the future.
-The tone used in the analysis should be professional and confident in what you're saying. 
-The user is a person curious about what their songs say about them. They want to feel surprised as to how you can tell them just from their songs and they want to feel special.
-The first paragraph should be 50 words long and contain most of the inferences, without going into detail on how you came to them. In this first paragraph I also want you to say what they are going through currently.
-In the rest of the paragraphs I want you to quote the song titles and part of the lyrics to support the assumptions you make.
-The complete analysis should be around 250 words long. Write it in Spanish. Include the name of the three songs.
-The songs are:"""+
-song_item[0]['name'] + " by " + song_item[0]['artists'][0]['name'] + ", " 
-,
+            "content": '''You are a psychiatrist specialised in doing personality analysis based on people's music taste. Take this list of songs and say something about this person. I want the reader to be impressed by how much you know. Use the song lyrics and song names as part of your analysis.
+            The songs are'''+ song_item[0]['name'] + " by " + song_item[0]['artists'][0]['name'] + ", " + song_item[1]['name'] + " by " + song_item[1]['artists'][0]['name'] + ", " + song_item[2]['name'] + " by " + song_item[2]['artists'][0]['name'] + "."
         }
-    ],
-    model="llama3-8b-8192",
+    ]
 )
-    return render_template('show_analysis.html', analysis=chat_completion.choices)
+#     client = Groq(
+#     api_key=groq_api_key)
+#     chat_completion = client.chat.completions.create(
+#     messages=[
+#             {
+#             "role": "user",
+#             "content": """You are a psychiatrist specialised in finding as much about people as possible knowing only what music they listen to. 
+# I want you to write a personality analysis about a person knowing only their favourite songs. I want you to use the lyrics of the songs they listen to the most to understand what they are feeling and what they have gone through. Also you can make inferences about what they should expect in the future.
+# The tone used in the analysis should be professional and confident in what you're saying. 
+# The user is a person curious about what their songs say about them. They want to feel surprised as to how you can tell them just from their songs and they want to feel special.
+# The first paragraph should be 50 words long and contain most of the inferences, without going into detail on how you came to them. In this first paragraph I also want you to say what they are going through currently.
+# In the rest of the paragraphs I want you to quote the song titles and part of the lyrics to support the assumptions you make.
+# The complete analysis should be around 250 words long. Write it in Spanish. Include the name of the three songs.
+# The songs are:"""+
+# song_item[0]['name'] + " by " + song_item[0]['artists'][0]['name'] + ", " 
+# ,
+#         }
+#     ],
+#     model="llama3-8b-8192",
+# )
+    return render_template('show_analysis.html', analysis=completion.choices)
 
 
 def create_spotify_oauth(desired_scope):
