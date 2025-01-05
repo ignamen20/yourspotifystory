@@ -1,4 +1,6 @@
 from flask import Flask, request, url_for, session, redirect, render_template, g
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
@@ -10,6 +12,12 @@ import sys
 from dotenv import load_dotenv, find_dotenv
 
 app = Flask(__name__)
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://",
+)
 
 app.secret_key = "generate_it_on_the_fly"
 app.config['SESSION_COOKIE_NAME'] = 'Ignas Cookie'
@@ -60,6 +68,7 @@ def get_top_songs():
     return redirect(auth_url)
 
 @app.route('/getTopTracks', methods=['POST', 'GET'])
+@limiter.limit("2 per day")
 def getTopTracks():
     try:
         token_info = get_token()
@@ -67,7 +76,7 @@ def getTopTracks():
         print("user not logged")
         return redirect('/')
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    limit_chosen = 20
+    limit_chosen = 10
     song_item_long_term = sp.current_user_top_tracks(
         limit=limit_chosen, offset=0, time_range='long_term')['items']
     song_item_medium_term = sp.current_user_top_tracks(
