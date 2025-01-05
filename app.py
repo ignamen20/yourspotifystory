@@ -67,9 +67,74 @@ def getTopTracks():
         print("user not logged")
         return redirect('/')
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    limit_chosen = 3
-    song_item = sp.current_user_top_tracks(
-        limit=limit_chosen, offset=19, time_range='long_term')['items']
+    limit_chosen = 20
+    song_item_long_term = sp.current_user_top_tracks(
+        limit=limit_chosen, offset=0, time_range='long_term')['items']
+    song_item_medium_term = sp.current_user_top_tracks(
+        limit=limit_chosen, offset=0, time_range='medium_term')['items']
+    song_item_short_term = sp.current_user_top_tracks(
+        limit=limit_chosen, offset=0, time_range='short_term')['items']
+    long_term_songs = (
+    song_item_long_term[0]['name'] + " by " + song_item_long_term[0]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[0]['popularity']) + ", " +
+    song_item_long_term[1]['name'] + " by " + song_item_long_term[1]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[1]['popularity']) + ", " +
+    song_item_long_term[2]['name'] + " by " + song_item_long_term[2]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[2]['popularity']) + ", " +
+    song_item_long_term[3]['name'] + " by " + song_item_long_term[3]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[3]['popularity']) + ", " +
+    song_item_long_term[4]['name'] + " by " + song_item_long_term[4]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[4]['popularity']) + ", " +
+    song_item_long_term[5]['name'] + " by " + song_item_long_term[5]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[5]['popularity']) + ", " +
+    song_item_long_term[6]['name'] + " by " + song_item_long_term[6]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[6]['popularity']) + ", " +
+    song_item_long_term[7]['name'] + " by " + song_item_long_term[7]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[7]['popularity']) + ", " +
+    song_item_long_term[8]['name'] + " by " + song_item_long_term[8]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[8]['popularity']) + ", " +
+    song_item_long_term[9]['name'] + " by " + song_item_long_term[9]['artists'][0]['name'] + ' pop=' + str(song_item_long_term[9]['popularity']) + "."
+)
+    medium_term_songs = (
+    song_item_medium_term[0]['name'] + " by " + song_item_medium_term[0]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[0]['popularity']) + ", " +
+    song_item_medium_term[1]['name'] + " by " + song_item_medium_term[1]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[1]['popularity']) + ", " +
+    song_item_medium_term[2]['name'] + " by " + song_item_medium_term[2]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[2]['popularity']) + ", " +
+    song_item_medium_term[3]['name'] + " by " + song_item_medium_term[3]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[3]['popularity']) + ", " +
+    song_item_medium_term[4]['name'] + " by " + song_item_medium_term[4]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[4]['popularity']) + ", " +
+    song_item_medium_term[5]['name'] + " by " + song_item_medium_term[5]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[5]['popularity']) + ", " +
+    song_item_medium_term[6]['name'] + " by " + song_item_medium_term[6]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[6]['popularity']) + ", " +
+    song_item_medium_term[7]['name'] + " by " + song_item_medium_term[7]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[7]['popularity']) + ", " +
+    song_item_medium_term[8]['name'] + " by " + song_item_medium_term[8]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[8]['popularity']) + ", " +
+    song_item_medium_term[9]['name'] + " by " + song_item_medium_term[9]['artists'][0]['name'] + ' pop=' + str(song_item_medium_term[9]['popularity']) + "."
+    )
+    short_term_songs = (
+    song_item_short_term[0]['name'] + " by " + song_item_short_term[0]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[0]['popularity']) + ", " +
+    song_item_short_term[1]['name'] + " by " + song_item_short_term[1]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[1]['popularity']) + ", " +
+    song_item_short_term[2]['name'] + " by " + song_item_short_term[2]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[2]['popularity']) + ", " +
+    song_item_short_term[3]['name'] + " by " + song_item_short_term[3]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[3]['popularity']) + ", " +
+    song_item_short_term[4]['name'] + " by " + song_item_short_term[4]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[4]['popularity']) + ", " +
+    song_item_short_term[5]['name'] + " by " + song_item_short_term[5]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[5]['popularity']) + ", " +
+    song_item_short_term[6]['name'] + " by " + song_item_short_term[6]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[6]['popularity']) + ", " +
+    song_item_short_term[7]['name'] + " by " + song_item_short_term[7]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[7]['popularity']) + ", " +
+    song_item_short_term[8]['name'] + " by " + song_item_short_term[8]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[8]['popularity']) + ", " +
+    song_item_short_term[9]['name'] + " by " + song_item_short_term[9]['artists'][0]['name'] + ' pop=' + str(song_item_short_term[9]['popularity']) + "."
+    )
+    #sadly, they deprecated the audio features endpoint
+    #features = sp.audio_features(id_list)
+    #song_list =[]
+    # for i in range(limit_chosen):
+    #         songs_values = {
+    #             'song_name':song_item[i]['name'],
+    #             'song_artist':song_item[i]['artists'][0]['name'],
+    #             'song_album':song_item[i]['album']['name'],
+    #             'song_popularity':song_item[i]['popularity'],
+    #             'accousticness':features[i]['acousticness'],
+    #             'danceability':features[i]['danceability'],
+    #             'duration_ms':features[i]['duration_ms'],
+    #             'energy':features[i]['energy'],
+    #             'instrumentalness':features[i]['instrumentalness'],
+    #             'key':features[i]['key'],
+    #             'liveness':features[i]['liveness'],
+    #             'loudness':features[i]['loudness'],
+    #             'mode':features[i]['mode'],
+    #             'speechiness':features[i]['speechiness'],
+    #             'tempo':features[i]['tempo'],
+    #             'time_signature':features[i]['time_signature'],
+    #             'valence':features[i]['valence']
+    #         }
+    #         song_list.append(songs_values)
+    #average_danceability = calculate_average('danceability', song_list)
     client = OpenAI(
         api_key=openai_api_key
     )
@@ -79,8 +144,21 @@ def getTopTracks():
         {"role": "system", "content": "You are a helpful assistant."},
         {
             "role": "user",
-            "content": '''You are a psychiatrist specialised in doing personality analysis based on people's music taste. Take this list of songs and say something about this person. I want the reader to be impressed by how much you know. Use the song lyrics and song names as part of your analysis.
-            The songs are'''+ song_item[0]['name'] + " by " + song_item[0]['artists'][0]['name'] + ", " + song_item[1]['name'] + " by " + song_item[1]['artists'][0]['name'] + ", " + song_item[2]['name'] + " by " + song_item[2]['artists'][0]['name'] + "."
+            "content": '''You are a psychiatrist specialised in doing personality analysis based on people's music taste.
+            The tone used in the analysis should be professional and confident in what you're saying.
+            The user is a person curious about what their songs say about them. They want to feel surprised as to how you can tell them just from their songs and they want to feel special.
+            I will give you the top 10 songs this person has listened to in the long, medium and short term. I want you to analyse the themes of the songs, the lyrics and give conclusions.
+            The first paragraph will be a summary of all your conclusions, which I will list in the following points:
+            1. What the person overall listens to. Happy songs, sad songs, instrumental songs, very popular songs, etc.
+            2. What the person is going through currently.
+            For example, if the person listens to a lot of happy songs in the long term, but in the short term has gotten into more sad, slow songs, you will say that they're going through a rough patch.
+            3. Talk about the popularity of the songs. I want you to analyse 2 things: if the average popularity of the songs is high, but there is one song that is very unpopular, or vice versa, I want you to point that out, and say for example "This person listens to popular songs, with the exeption of this particular song
+            Also, if the average popularity of the long term songs is high, but in the short term they are listening to less popular songs, I want you to point that out.
+            Support your claims using part of the song's lyrics and song names. Make it around 300 words long.
+            ''' + "."+
+            "The long-term songs are "+ long_term_songs
+            + "The medium-term songs are "+ medium_term_songs
+            + "The short-term songs are "+ short_term_songs
         }
     ]
 )
@@ -104,6 +182,8 @@ def getTopTracks():
 #     ],
 #     model="llama3-8b-8192",
 # )
+    #return long_term_songs + "\n" + medium_term_songs + "\n" + short_term_songs
+    #return completion.choices[0].message.content
     return render_template('show_analysis.html', analysis=completion.choices)
 
 
@@ -124,6 +204,11 @@ def get_token():
         sp_oauth = create_spotify_oauth(session.get('chosen_scope', None))
         token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
     return token_info
+
+def calculate_average(feature_name, song_list):
+    total = sum(song[feature_name] for song in song_list)
+    count = len(song_list)
+    return total / count if count > 0 else 0
 
 if __name__ == '__main__':
     app.run()  
