@@ -68,7 +68,7 @@ def get_top_songs():
     return redirect(auth_url)
 
 @app.route('/getTopTracks', methods=['POST', 'GET'])
-@limiter.limit("2 per day")
+@limiter.limit("100 per day")
 def getTopTracks():
     try:
         token_info = get_token()
@@ -170,7 +170,13 @@ def getTopTracks():
             + "The short-term songs are "+ short_term_songs
         }
     ]
-)
+    )
+    # Extract the content from the completion response
+    analysis_content = completion.choices[0].message.content
+
+    # Replace '\n\n' with actual new lines
+    formatted_analysis = analysis_content.replace('\n\n', '<br><br>')
+
 #     client = Groq(
 #     api_key=groq_api_key)
 #     chat_completion = client.chat.completions.create(
@@ -193,7 +199,7 @@ def getTopTracks():
 # )
     #return long_term_songs + "\n" + medium_term_songs + "\n" + short_term_songs
     #return completion.choices[0].message.content
-    return render_template('show_analysis.html', analysis=completion.choices)
+    return render_template('show_analysis.html', analysis=formatted_analysis)
 
 
 def create_spotify_oauth(desired_scope):
