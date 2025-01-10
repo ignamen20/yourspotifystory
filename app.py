@@ -45,7 +45,9 @@ csp = {
         'https://fonts.gstatic.com'
     ]
 }
-talisman = Talisman(app, content_security_policy=csp, force_https=False)
+talisman = Talisman(app, content_security_policy=csp
+                    , force_https=True
+                    )
 limiter = Limiter(
     get_remote_address,
     app=app,
