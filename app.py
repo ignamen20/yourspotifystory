@@ -1,6 +1,8 @@
 from flask import Flask, request, url_for, session, redirect, render_template, g
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from flask import Flask
+from flask_talisman import Talisman
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
@@ -12,6 +14,7 @@ import sys
 from dotenv import load_dotenv, find_dotenv
 
 app = Flask(__name__)
+Talisman(app,force_https=False)
 limiter = Limiter(
     get_remote_address,
     app=app,
@@ -22,6 +25,9 @@ limiter = Limiter(
 app.secret_key = "generate_it_on_the_fly"
 app.config['SESSION_COOKIE_NAME'] = 'Ignas Cookie'
 TOKEN_INFO = 'token_info'
+app.config['SESSION_COOKIE_SECURE'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 load_dotenv()
 client_id = os.getenv("CLIENT_ID")
@@ -68,7 +74,7 @@ def get_top_songs():
     return redirect(auth_url)
 
 @app.route('/getTopTracks', methods=['POST', 'GET'])
-@limiter.limit("100 per day")
+@limiter.limit("10 per day")
 def getTopTracks():
     try:
         token_info = get_token()
