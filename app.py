@@ -11,10 +11,41 @@ from openai import OpenAI
 import time
 import os
 import sys
+import secrets
 from dotenv import load_dotenv, find_dotenv
 
 app = Flask(__name__)
-Talisman(app,force_https=False)
+
+# Custom Content Security Policy (CSP)
+csp = {
+    'default-src': [
+        '\'self\'',
+        'https://stackpath.bootstrapcdn.com',
+        'https://cdnjs.cloudflare.com',
+        'https://fonts.googleapis.com',
+        'https://fonts.gstatic.com'
+    ],
+    'img-src': [
+        '\'self\'',
+        'data:'
+    ],
+    'style-src': [
+        '\'self\'',
+        'https://stackpath.bootstrapcdn.com',
+        'https://cdnjs.cloudflare.com',
+        'https://fonts.googleapis.com'
+    ],
+    'script-src': [
+        '\'self\'',
+        'https://stackpath.bootstrapcdn.com',
+        'https://cdnjs.cloudflare.com'
+    ],
+    'font-src': [
+        '\'self\'',
+        'https://fonts.gstatic.com'
+    ]
+}
+talisman = Talisman(app, content_security_policy=csp, force_https=False)
 limiter = Limiter(
     get_remote_address,
     app=app,
@@ -36,6 +67,38 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 openai_project_id = os.getenv("OPENAI_PROJECT_ID")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
+@app.before_request
+def set_nonce():
+    g.nonce = secrets.token_urlsafe()
+    talisman.content_security_policy = {
+        'default-src': [
+            '\'self\'',
+            'https://stackpath.bootstrapcdn.com',
+            'https://cdnjs.cloudflare.com',
+            'https://fonts.googleapis.com',
+            'https://fonts.gstatic.com'
+        ],
+        'img-src': [
+            '\'self\'',
+            'data:'
+        ],
+        'style-src': [
+            '\'self\'',
+            f'\'nonce-{g.nonce}\'',
+            'https://stackpath.bootstrapcdn.com',
+            'https://cdnjs.cloudflare.com',
+            'https://fonts.googleapis.com'
+        ],
+        'script-src': [
+            '\'self\'',
+            'https://stackpath.bootstrapcdn.com',
+            'https://cdnjs.cloudflare.com'
+        ],
+        'font-src': [
+            '\'self\'',
+            'https://fonts.gstatic.com'
+        ]
+    }
 
 @app.route('/')
 def welcome():
@@ -205,7 +268,7 @@ def getTopTracks():
 # )
     #return long_term_songs + "\n" + medium_term_songs + "\n" + short_term_songs
     #return completion.choices[0].message.content
-    return render_template('show_analysis.html', analysis=formatted_analysis)
+    return render_template('show_analysis.html', analysis=formatted_analysis,nonce=g.nonce)
 
 
 def create_spotify_oauth(desired_scope):

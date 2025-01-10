@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome to AI Shrink</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
+    <style nonce="{{ g.nonce }}">
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
@@ -55,17 +55,28 @@
         <div class="container">
             <h1>Welcome to AI Shrink</h1>
             <p>Your personalized music analysis awaits.</p>
-            <img src="https://media.licdn.com/dms/image/C4E12AQHrWl6pydYO6A/article-cover_image-shrink_600_2000/0/1520228729765?e=2147483647&v=beta&t=o8Pw-bbdm5yGWfYAjsJQ3dJeJpN9MWCLjDADFAZvvy8" alt="ai-shrink illustration" class="hero-image">
+            <img src="{{ url_for('static', filename='images/ai_shrink.jpeg')}}" alt="ai-shrink illustration" class="hero-image">
         </div>
     </section>
     <div class="container content">
+        <h1>Song List</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Song</th>
+                    <th>Added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Add your song list items here -->
+            </tbody>
         </table>
         <form action="/top_songs" method="GET" class="mt-4">
             <button type="submit" class="btn btn-primary">Get user's top tracks!</button>
         </form>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 </html>
