@@ -46,7 +46,8 @@ csp = {
     ]
 }
 talisman = Talisman(app, content_security_policy=csp
-                    , force_https=True
+                    , force_https=False
+                    # we can force_https=True when deploying to Heroku, not in local envi 
                     )
 limiter = Limiter(
     get_remote_address,
@@ -104,17 +105,6 @@ def set_nonce():
 
 @app.route('/')
 def welcome():
-    if client_id and client_secret:
-        print("Client ID and Client Secret loaded successfully.")
-    else:
-        print("Error: Client ID or Client Secret not loaded.")
-    print(f"Client ID: {client_id}, Client Secret: {client_secret}")
-    if groq_api_key:
-        print("Groq API Key loaded successfully.")
-    else:
-            print("Error: Groq API Key not loaded.") 
-    if openai_api_key:
-        print("OpenAI API Key loaded successfully.")   
     return render_template('welcome.html')
 
 @app.route('/redirect')
