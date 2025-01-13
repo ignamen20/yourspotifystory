@@ -52,7 +52,7 @@ talisman = Talisman(app, content_security_policy=csp
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"],
+    default_limits=["200 per day", "55 per hour"],
     storage_uri="memory://",
 )
 
@@ -262,6 +262,26 @@ def getTopTracks():
     #return completion.choices[0].message.content
     return render_template('show_analysis.html', analysis=formatted_analysis,nonce=g.nonce)
 
+@app.route('/privacy_policy')
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+@app.route('/tos')
+def tos():
+    return render_template('tos.html')
+
+@app.route('/community_guidelines')
+def community_guidelines():
+    return render_template('community_guidelines.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html', nonce=g.nonce)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html', nonce=g.nonce)
+
 
 def create_spotify_oauth(desired_scope):
     return SpotifyOAuth(
@@ -281,10 +301,6 @@ def get_token():
         token_info = sp_oauth.refresh_access_token(token_info['refresh_token'])
     return token_info
 
-def calculate_average(feature_name, song_list):
-    total = sum(song[feature_name] for song in song_list)
-    count = len(song_list)
-    return total / count if count > 0 else 0
 
 if __name__ == '__main__':
     app.run()  

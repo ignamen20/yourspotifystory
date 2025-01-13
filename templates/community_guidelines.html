@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Community Guidelines</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style nonce="{{ g.nonce }}">
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background-color: #007bff;
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .content {
+            padding: 20px;
+        }
+        .table th, .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Music Analysis</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('welcome') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero-section">
+        <div class="container">
+            <h1>Community Guidelines</h1>
+        </div>
+    </section>
+    <div class="container content">
+        <h2>YourVibe</h2>
+        <p>Welcome to YourVibe, where we embrace the diverse tapestry of musical expression and cultivate a community built on respect. Our guidelines are designed to foster a welcoming environment where every member feels valued and safe to express themselves musically.</p>
+        
+        <p>Be respectful and considerate of others' opinions. Diverse backgrounds, preferences and ideas are what makes musictaste a great place for everyone. Don't organise, participate or encourage harassment of others or making unwelcome, aggressive or inappropriate remarks at others. Don't promote, engage in or incite hate speech or discrimination based on attributes such as race, ethnicity, gender, age, sexual orientation, religion or disability.</p>
+        
+        <p>Don't be malicious or conduct malicious acts. Don't make threats of violence, threaten to harm others or including any indirect threats. Don't request or attempt to solicit personal identifiable information from others.</p>
+
+        <p>Let us know if something is off. The YourVibe team reviews every feedback or report we receive. We reserve the right to remove any content that we consider to be offensive, harmful, unlawful, graphic or have the potential to harm others. When these guidelines are violated, we may revoke, terminate or suspend the offending account(s).</p>
+        <p>YourVibe has, and will always have, a strong community focus. As the community grows and develops, these guidelines and how they are enforced are updated to make sure YourVibe remains to be a welcoming, interesting and overall fun place to express musical personalities. Thanks for being a part of this journey with us.</p>
+
+        <p>Yours, the YourVibe team 😎.</p>
+    
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
